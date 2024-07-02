@@ -25,23 +25,26 @@ class CorporativoResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nit')
-                    ->required()
-                    ->unique(),
-                Forms\Components\TextInput::make('razon_social')
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->label('Correo Electrónico')
-                    ->email()
-                    ->required()
-                    ->unique(),
-                Forms\Components\TextInput::make('telefono')
-                    ->label('Telefono')
-                    ->numeric()
-                    ->required()
-                    ->unique(),
+                Forms\Components\Section::make('Información de la empresa')
+                    ->schema([
+                        Forms\Components\TextInput::make('nit')
+                            ->required()
+                            ->unique(),
+                        Forms\Components\TextInput::make('razon_social')
+                            ->required(),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Correo Electrónico')
+                            ->email()
+                            ->required()
+                            ->unique(),
+                        Forms\Components\TextInput::make('telefono')
+                            ->label('Telefono')
+                            ->numeric()
+                            ->required()
+                            ->unique(),
+                    ]),
                 // Otros campos...
-                Forms\Components\Section::make('Ubicación')
+                Forms\Components\Section::make('Información de ubicación')
                     ->schema([
                         Forms\Components\Select::make('ubicacion.departamento_id')
                             ->label('Departamento')
@@ -67,16 +70,33 @@ class CorporativoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nit'),
-                Tables\Columns\TextColumn::make('razon_social'),
+                Tables\Columns\TextColumn::make('nit')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('razon_social')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('telefono'),
+                Tables\Columns\TextColumn::make('ubicacion.ciudad.nombre')
+                    ->label('Ciudad')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

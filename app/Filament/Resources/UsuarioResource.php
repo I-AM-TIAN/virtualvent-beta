@@ -5,14 +5,12 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UsuarioResource\Pages;
 use App\Filament\Resources\UsuarioResource\RelationManagers;
 use App\Models\User;
-use App\Models\Usuario;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class UsuarioResource extends Resource
 {
@@ -24,7 +22,7 @@ class UsuarioResource extends Resource
     {
         return $form
             ->schema([
-                //Campos que solicita a la hora de registrar un nuevo super usuario
+                // Campos que solicita a la hora de registrar un nuevo super usuario
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(30),
@@ -42,7 +40,7 @@ class UsuarioResource extends Resource
     {
         return $table
             ->columns([
-                //Campos que se listan en la tabla de super usuarios
+                // Campos que se listan en la tabla de super usuarios
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
@@ -85,5 +83,11 @@ class UsuarioResource extends Resource
             'create' => Pages\CreateUsuario::route('/create'),
             'edit' => Pages\EditUsuario::route('/{record}/edit'),
         ];
+    }
+
+    // Sobrescribe el método getEloquentQuery para filtrar los usuarios por tipo_usuario_id = 1
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('tipo_usuario_id', 1);
     }
 }
