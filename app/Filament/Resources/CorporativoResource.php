@@ -60,7 +60,7 @@ class CorporativoResource extends Resource
                             ->searchable()
                             ->required(),
                         Forms\Components\TextInput::make('ubicacion.nombre')
-                            ->label('Nombre de la ubicación')
+                            ->label('Dirección detallada')
                             ->required(),
                     ]),
             ]);
