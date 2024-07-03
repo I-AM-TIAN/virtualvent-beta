@@ -14,10 +14,16 @@ class Corporativo extends Model
         'razon_social',
         'email',
         'telefono',
+        'created_by',
     ];
 
     public function ubicacion()
     {
         return $this->hasOne(Ubicacion::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

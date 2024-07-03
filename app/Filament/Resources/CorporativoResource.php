@@ -80,8 +80,12 @@ class CorporativoResource extends Resource
                 Tables\Columns\TextColumn::make('telefono'),
                 Tables\Columns\TextColumn::make('ubicacion.ciudad.nombre')
                     ->label('Ciudad')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('creator.name')
+                    ->label('Creado por')
+                    ->sortable()
                     ->searchable()
-                    ->sortable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

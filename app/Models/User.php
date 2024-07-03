@@ -58,4 +58,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->tipo_usuario_id == 1;
     }
+
+    public function creador()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

@@ -15,6 +15,12 @@ class CreateCorporativo extends CreateRecord
 {
     protected static string $resource = CorporativoResource::class;
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['created_by'] = auth()->id();
+        return $data;
+    }
+
     protected function handleRecordCreation(array $data): Model
     {
         $corporativo = Corporativo::create($data);
@@ -32,6 +38,7 @@ class CreateCorporativo extends CreateRecord
 
         // Enviar correo electrónico con las credenciales
         Mail::to($data['email'])->send(new \App\Mail\CorporateCredentialsMail($user->email, $password));
+
 
         return $corporativo;
     }
