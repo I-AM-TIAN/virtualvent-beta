@@ -11,11 +11,14 @@ class EditCorporativo extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        return $data;
+    }
+
+    protected function afterSave(): void
+    {
         $this->record->ubicacion()->updateOrCreate(
             ['corporativo_id' => $this->record->id],
-            $data['ubicacion']
+            $this->data['ubicacions']
         );
-
-        return $data;
     }
 }

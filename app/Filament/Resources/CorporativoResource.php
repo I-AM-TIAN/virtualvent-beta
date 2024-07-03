@@ -19,7 +19,7 @@ class CorporativoResource extends Resource
 {
     protected static ?string $model = Corporativo::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
     public static function form(Form $form): Form
     {
@@ -29,37 +29,37 @@ class CorporativoResource extends Resource
                     ->schema([
                         Forms\Components\TextInput::make('nit')
                             ->required()
-                            ->unique(),
+                            ->unique(Corporativo::class, 'nit', fn ($record) => $record),
                         Forms\Components\TextInput::make('razon_social')
                             ->required(),
                         Forms\Components\TextInput::make('email')
                             ->label('Correo Electrónico')
                             ->email()
                             ->required()
-                            ->unique(),
+                            ->unique(Corporativo::class, 'email', fn ($record) => $record),
                         Forms\Components\TextInput::make('telefono')
                             ->label('Telefono')
                             ->numeric()
                             ->required()
-                            ->unique(),
+                            ->unique(Corporativo::class, 'telefono', fn ($record) => $record),
                     ]),
                 // Otros campos...
                 Forms\Components\Section::make('Información de ubicación')
                     ->schema([
-                        Forms\Components\Select::make('ubicacion.departamento_id')
+                        Forms\Components\Select::make('ubicacions.departamento_id')
                             ->label('Departamento')
                             ->options(Departamento::all()->pluck('nombre', 'id'))
                             ->searchable()
                             ->required(),
-                        Forms\Components\Select::make('ubicacion.ciudad_id')
+                        Forms\Components\Select::make('ubicacions.ciudad_id')
                             ->label('Ciudad')
                             ->options(function (callable $get) {
-                                $departamentoId = $get('ubicacion.departamento_id');
+                                $departamentoId = $get('ubicacions.departamento_id');
                                 return Ciudad::where('departamento_id', $departamentoId)->pluck('nombre', 'id');
                             })
                             ->searchable()
                             ->required(),
-                        Forms\Components\TextInput::make('ubicacion.nombre')
+                        Forms\Components\TextInput::make('ubicacions.nombre')
                             ->label('Dirección detallada')
                             ->required(),
                     ]),
