@@ -14,6 +14,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Symfony\Contracts\Service\Attribute\Required;
+
+use function Laravel\Prompts\search;
 
 class CorporativoResource extends Resource
 {
@@ -43,26 +46,25 @@ class CorporativoResource extends Resource
                             ->required()
                             ->unique(Corporativo::class, 'telefono', fn ($record) => $record),
                     ]),
-                // Otros campos...
-                Forms\Components\Section::make('Información de ubicación')
+                Forms\Components\Section::make('Información de la ubicación')
                     ->schema([
-                        Forms\Components\Select::make('ubicacions.departamento_id')
+                        Forms\Components\Select::make('ubicacion.departamento_id')
                             ->label('Departamento')
                             ->options(Departamento::all()->pluck('nombre', 'id'))
                             ->searchable()
                             ->required(),
-                        Forms\Components\Select::make('ubicacions.ciudad_id')
+                        Forms\Components\Select::make('ubicacion.ciudad_id')
                             ->label('Ciudad')
                             ->options(function (callable $get) {
-                                $departamentoId = $get('ubicacions.departamento_id');
+                                $departamentoId = $get('ubicacion.departamento_id');
                                 return Ciudad::where('departamento_id', $departamentoId)->pluck('nombre', 'id');
                             })
                             ->searchable()
                             ->required(),
-                        Forms\Components\TextInput::make('ubicacions.nombre')
+                        Forms\Components\TextInput::make('ubicacion.nombre')
                             ->label('Dirección detallada')
                             ->required(),
-                    ]),
+                    ])
             ]);
     }
 
