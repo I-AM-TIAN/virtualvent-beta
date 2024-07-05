@@ -24,9 +24,6 @@ class CreateCategory extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $categoria = Category::create($data);
-
-
         $categoria = Category::create([
             'nombre' => $data['nombre'],
             'descripcion' => $data['descripcion'],
