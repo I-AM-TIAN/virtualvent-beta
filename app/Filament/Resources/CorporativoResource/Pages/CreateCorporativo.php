@@ -23,10 +23,6 @@ class CreateCorporativo extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $corporativo = Corporativo::create($data);
-
-        $corporativo->ubicacion()->create($data['ubicacion']);
-
         // Crear usuario
         $password = Str::random(12);
         $user = User::create([
@@ -36,9 +32,14 @@ class CreateCorporativo extends CreateRecord
             'tipo_usuario_id' => 2, // Tipo de usuario corporativo
         ]);
 
+        // Crear el corporativo y asignar el user_id del usuario creado
+        $corporativo = Corporativo::create(array_merge($data, ['user_id' => $user->id]));
+
+        // Crear la ubicación asociada al corporativo
+        $corporativo->ubicacion()->create($data['ubicacion']);
+
         // Enviar correo electrónico con las credenciales
         Mail::to($data['email'])->send(new \App\Mail\CorporateCredentialsMail($user->email, $password));
-
 
         return $corporativo;
     }
