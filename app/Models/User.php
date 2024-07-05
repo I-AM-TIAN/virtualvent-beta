@@ -69,4 +69,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function corporativo()
+    {
+        return $this->hasOne(Corporativo::class);
+    }
 }
