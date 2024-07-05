@@ -23,7 +23,14 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make('Información de categorías')
+                ->schema([
+                    Forms\Components\TextInput::make('nombre')
+                        ->required()
+                        ->unique(Category::class, 'nombre', fn ($record) => $record),
+                    Forms\Components\TextInput::make('descripcion')
+                        ->required(),
+                ]),
             ]);
     }
 
@@ -31,7 +38,12 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('nombre')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('descripcion')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
