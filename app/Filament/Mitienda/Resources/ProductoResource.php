@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoResource extends Resource
 {
@@ -64,16 +65,18 @@ class ProductoResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nombre')
-                ->searchable(),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('descripcion'),
                 Tables\Columns\TextColumn::make('precio'),
                 Tables\Columns\TextColumn::make('stock'),
                 Tables\Columns\TextColumn::make('pedido_minimo'),
+                Tables\Columns\ImageColumn::make('imagen')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('category.nombre')
-                ->label('Categoria')
-                ->searchable(),
+                    ->label('Categoria')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                ->toggleable(isToggledHiddenByDefault:true),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
