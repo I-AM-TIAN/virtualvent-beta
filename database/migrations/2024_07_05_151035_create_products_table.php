@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->text('descripcion')->nullable();
@@ -20,13 +20,13 @@ return new class extends Migration
             $table->integer('pedido_minimo');
             $table->string('imagen');
             $table->foreignId('corporativo_id')->nullable()->constrained('corporativos')->onDelete('set null');
-            $table->foreignId('categoria_id')->nullable()->constrained('categorias')->onDelete('set null');
+            $table->foreignId('categoria_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('productos');
+        Schema::dropIfExists('products');
     }
 };

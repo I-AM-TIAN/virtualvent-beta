@@ -19,6 +19,18 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    // Nombre singular del recurso
+    public static function getModelLabel(): string
+    {
+        return 'Categoria';
+    }
+
+    // Nombre plural del recurso
+    public static function getPluralModelLabel(): string
+    {
+        return 'Categorias';
+    }
+
     public static function form(Form $form): Form
     {
         return $form
