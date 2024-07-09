@@ -40,7 +40,7 @@ class ProductoResource extends Resource
                 Forms\Components\TextInput::make('nombre')
                     ->required(),
                 Forms\Components\Textarea::make('descripcion')
-                    ->required(),
+                    ->hint(fn ($state, $component) => 'Quedan: ' . $component->getMaxLength() - strlen($state) . ' caractéres')->maxlength(101)->live(),
                 Forms\Components\FileUpload::make('imagen')
                     ->required()
                     ->image(),
@@ -70,8 +70,7 @@ class ProductoResource extends Resource
                 Tables\Columns\TextColumn::make('precio'),
                 Tables\Columns\TextColumn::make('stock'),
                 Tables\Columns\TextColumn::make('pedido_minimo'),
-                Tables\Columns\ImageColumn::make('imagen')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\ImageColumn::make('imagen'),
                 Tables\Columns\TextColumn::make('category.nombre')
                     ->label('Categoria')
                     ->searchable(),
