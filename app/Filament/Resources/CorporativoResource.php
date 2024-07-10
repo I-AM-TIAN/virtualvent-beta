@@ -45,6 +45,10 @@ class CorporativoResource extends Resource
                             ->numeric()
                             ->required()
                             ->unique(Corporativo::class, 'telefono', fn ($record) => $record),
+                        Forms\Components\FileUpload::make('logo')
+                            ->label('Logo de la empresa')
+                            ->image()
+                            ->required(),
                     ]),
                 Forms\Components\Section::make('Información de la ubicación')
                     ->schema([
@@ -83,6 +87,7 @@ class CorporativoResource extends Resource
                 Tables\Columns\TextColumn::make('ubicacion.ciudad.nombre')
                     ->label('Ciudad')
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('logo'),
                 Tables\Columns\TextColumn::make('creator.name')
                     ->label('Creado por')
                     ->sortable()
