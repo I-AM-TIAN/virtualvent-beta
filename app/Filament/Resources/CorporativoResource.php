@@ -35,6 +35,8 @@ class CorporativoResource extends Resource
                             ->unique(Corporativo::class, 'nit', fn ($record) => $record),
                         Forms\Components\TextInput::make('razon_social')
                             ->required(),
+                        Forms\Components\Textarea::make('descripcion')
+                            ->hint(fn ($state, $component) => 'Quedan: ' . $component->getMaxLength() - strlen($state) . ' caractéres')->maxlength(101)->live(),
                         Forms\Components\TextInput::make('email')
                             ->label('Correo Electrónico')
                             ->email()
@@ -88,6 +90,7 @@ class CorporativoResource extends Resource
                     ->label('Ciudad')
                     ->searchable(),
                 Tables\Columns\ImageColumn::make('logo'),
+                Tables\Columns\TextColumn::make('descripcion'),
                 Tables\Columns\TextColumn::make('creator.name')
                     ->label('Creado por')
                     ->sortable()
