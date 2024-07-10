@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('corporativos', function (Blueprint $table) {
             $table->id();
-            $table->integer('nit');
+            $table->string('nit');
             $table->string('razon_social');
             $table->string('email')->unique();
             $table->string('telefono');
