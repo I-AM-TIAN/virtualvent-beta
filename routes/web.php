@@ -7,4 +7,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tiendas', [CorporativesController::class, 'index']);
+Route::get('api/tiendas', [CorporativesController::class, 'index']);
