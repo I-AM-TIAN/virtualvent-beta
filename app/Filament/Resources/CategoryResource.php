@@ -56,7 +56,7 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('descripcion')
                     ->searchable()
                     ->sortable(),
-                    Tables\Columns\TextColumn::make('creadopor')
+                    Tables\Columns\TextColumn::make('creator.name')
                     ->label('Creado por')
                     ->sortable()
                     ->searchable()
