@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->text('descripcion')->nullable();
-            $table->timestamps();
+        Schema::table('corporativos', function (Blueprint $table) {
+            $table->string('descripcion');
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('corporativos', function (Blueprint $table) {
+            $table->dropColumn('descripcion');
+        });
     }
 };

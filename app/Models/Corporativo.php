@@ -17,6 +17,7 @@ class Corporativo extends Model
         'created_by',
         'user_id',
         'logo',
+        'descripcion',
     ];
 
     public function ubicacion()
