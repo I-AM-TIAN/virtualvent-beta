@@ -17,7 +17,7 @@ class CreateCategory extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $data['created_by'] = auth()->id();
+        $data['creadopor'] = auth()->id();
         return $data;
     }
 
@@ -27,6 +27,7 @@ class CreateCategory extends CreateRecord
         $categoria = Category::create([
             'nombre' => $data['nombre'],
             'descripcion' => $data['descripcion'],
+            'creadopor' => $data['creadopor'],
         ]);
 
         return $categoria;

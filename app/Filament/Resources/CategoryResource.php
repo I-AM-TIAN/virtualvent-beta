@@ -41,7 +41,7 @@ class CategoryResource extends Resource
                         ->required()
                         ->unique(Category::class, 'nombre', fn ($record) => $record),
                     Forms\Components\TextInput::make('descripcion')
-                        ->required(),
+                        ->required()
                 ]),
             ]);
     }
@@ -56,6 +56,11 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('descripcion')
                     ->searchable()
                     ->sortable(),
+                    Tables\Columns\TextColumn::make('creadopor')
+                    ->label('Creado por')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
