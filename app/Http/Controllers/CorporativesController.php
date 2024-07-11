@@ -10,8 +10,7 @@ class CorporativesController extends Controller
     //funcion que lista todos los corporativos
     public function index()
     {
-        $empresas = Corporativo::all();
+        $empresas = Corporativo::orderBy('razon_social', 'asc')->get();
         return response()->json($empresas);
     }
-    
 }
