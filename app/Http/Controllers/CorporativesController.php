@@ -13,4 +13,9 @@ class CorporativesController extends Controller
         $empresas = Corporativo::orderBy('razon_social', 'asc')->get();
         return response()->json($empresas);
     }
+
+    public function show($url){
+        $store = Corporativo::where('url', $url)->firstOrFail();
+        return response()->json($store);
+    }
 }

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //Crear valores iniciales necesarios en la base de datos;
+        //Crear valores iniciales necesarios en la base de datos
 
         tipoUsuario::create([
             'codigo' => '1',

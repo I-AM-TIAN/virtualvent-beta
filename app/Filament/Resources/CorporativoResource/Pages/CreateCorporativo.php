@@ -32,11 +32,14 @@ class CreateCorporativo extends CreateRecord
             'tipo_usuario_id' => 2, // Tipo de usuario corporativo
         ]);
 
-        // Crear el corporativo y asignar el user_id del usuario creado
+        // Crear el corporativo sin 'ubicacion_id' primero
         $corporativo = Corporativo::create(array_merge($data, ['user_id' => $user->id]));
 
-        // Crear la ubicación asociada al corporativo
-        $corporativo->ubicacion()->create($data['ubicacion']);
+        // Crear la ubicación asociada al corporativo y obtener 'ubicacion_id'
+        $ubicacion = $corporativo->ubicacion()->create($data['ubicacion']);
+
+        // Actualizar el corporativo con 'ubicacion_id'
+        $corporativo->update(['ubicacion_id' => $ubicacion->id]);
 
         // Enviar correo electrónico con las credenciales
         Mail::to($data['email'])->send(new \App\Mail\CorporateCredentialsMail($user->email, $password));

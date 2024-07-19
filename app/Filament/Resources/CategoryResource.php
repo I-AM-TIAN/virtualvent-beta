@@ -60,7 +60,7 @@ class CategoryResource extends Resource
                     ->label('Creado por')
                     ->sortable()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
                 //

@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('corporativos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nit');
-            $table->string('razon_social');
-            $table->string('email')->unique();
-            $table->string('telefono');
-            $table->timestamps();
+        Schema::table('corporativos', function (Blueprint $table) {
+            $table->string('url')->unique();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('corporativos');
+        Schema::table('corporativos', function (Blueprint $table) {
+            $table->dropColumn('url');
+        });
     }
 };
