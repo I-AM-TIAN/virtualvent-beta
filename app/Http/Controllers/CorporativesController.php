@@ -18,4 +18,16 @@ class CorporativesController extends Controller
         $store = Corporativo::where('url', $url)->firstOrFail();
         return response()->json($store);
     }
+
+    public function getIdByURL(Request $request)
+    {
+        $url = $request->query('url');
+        $corporativo = Corporativo::where('url', $url)->first();
+
+        if ($corporativo) {
+            return response()->json(['id_corporativo' => $corporativo->id]);
+        } else {
+            return response()->json(['error' => 'No se encontró el corporativo'], 404);
+        }
+    }
 }
