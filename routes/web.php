@@ -15,8 +15,5 @@ Route::get('api/tiendas', [CorporativesController::class, 'index']);
 
 Route::get('api/store/{url}', [CorporativesController::class, 'show'])->name('store.show');
 
-Route::get('api/productos', [ProductController::class, 'index']);
+Route::get('api/store/{url}/products', [CorporativesController::class, 'getProducts'])->name('store.show');
 
-Route::get('api/corporativo', [CorporativesController::class, 'getIdByURL']);
-
-Route::get('api/productos/{id_corporativo}', [ProductController::class, 'index']);

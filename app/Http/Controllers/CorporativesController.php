@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Corporativo;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CorporativesController extends Controller
@@ -19,15 +20,21 @@ class CorporativesController extends Controller
         return response()->json($store);
     }
 
-    public function getIdByURL(Request $request)
+    public function getProducts($url)
     {
-        $url = $request->query('url');
-        $corporativo = Corporativo::where('url', $url)->first();
+        // Buscar la tienda por URL
+        $store = Corporativo::where('url', $url)->first();
 
-        if ($corporativo) {
-            return response()->json(['id_corporativo' => $corporativo->id]);
-        } else {
-            return response()->json(['error' => 'No se encontró el corporativo'], 404);
+        // Verificar si la tienda existe
+        if (!$store) {
+            return response()->json(['error' => 'Store not found'], 404);
         }
+
+        // Obtener los productos de la tienda
+        $products = Product::where('corporativo_id', $store->id)->get();
+
+        return response()->json($products);
     }
+
+    
 }
