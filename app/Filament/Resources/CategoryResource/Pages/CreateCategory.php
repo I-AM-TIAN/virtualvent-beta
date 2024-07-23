@@ -15,19 +15,12 @@ class CreateCategory extends CreateRecord
 {
     protected static string $resource = CategoryResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $data['creadopor'] = auth()->id();
-        return $data;
-    }
-
-
     protected function handleRecordCreation(array $data): Model
     {
         $categoria = Category::create([
             'nombre' => $data['nombre'],
             'descripcion' => $data['descripcion'],
-            'creadopor' => $data['creadopor'],
+            'creadopor' => auth()->id(),
         ]);
 
         return $categoria;

@@ -18,7 +18,7 @@ class Ubicacion extends Model
 
     public function corporativo()
     {
-        return $this->belongsTo(Corporativo::class);
+        return $this->hasOne(Corporativo::class);
     }
 
     public function departamento()
