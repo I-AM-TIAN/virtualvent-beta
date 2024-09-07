@@ -10,7 +10,6 @@ class Ubicacion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'corporativo_id',
         'departamento_id',
         'ciudad_id',
         'nombre',
